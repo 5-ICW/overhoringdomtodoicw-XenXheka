@@ -31,28 +31,35 @@ const winkels = [
     winkel: "Carfour",
   },
 ];
-
+let lijst = [];
 winkels.forEach((winkel) => {
   const winkelOptions = document.createElement("option");
   winkelOptions.innerText = winkel.winkel;
+  winkelOptions.value = winkel.winkel;
   selectWinkel.appendChild(winkelOptions);
 });
-const winkel = selectWinkel.addEventListener("change", function (e) {
-  const target = e.target;
-  console.log(target.value);
-});
+function winkelSelecteeren() {
+  selectWinkel.addEventListener("change", function (e) {
+    const target = e.target;
+    lijst.push(target.value);
+    console.log(lijst);
+  });
+}
+winkelSelecteeren();
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   const text = input.value.trim();
   if (text !== "") {
     const li = document.createElement("li");
-    li.textContent = `${text} [${winkel}]`;
+    li.textContent = `${text} [${lijst}]`;
     li.addEventListener("click", function () {
       li.classList.toggle("completed");
     });
     list.appendChild(li);
     input.value = "";
+    lijst = [];
   }
+  console.log(lijst);
 });
 
 taken.forEach((taak) => {
